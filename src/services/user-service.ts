@@ -27,7 +27,8 @@ export class UserService {
         const loginRequest = Validation.validate(UserValidation.LOGIN, request);
 
         const user = await prisma.user.findUnique({
-            where: { email: loginRequest.email }
+            where: { email: loginRequest.email },
+            select : { id: true, password: true }
         });
         if (!user) throw new ResponseError(400, "Invalid email or password!");
 
@@ -38,9 +39,12 @@ export class UserService {
             process.env.ACCESS_TOKEN_SECRET as string,
             {
                 expiresIn: "1h",
-                issuer: "mealify"
             }
         );
+        await prisma.user.update({
+            where: { id: user.id },
+            data: { token: token }
+        })
         return {token, message: "Login success!"};
     }
 }

@@ -3,9 +3,11 @@ import { errorMiddleware } from './middlewares/error-middleware';
 import { userRouter } from './routes/user-api';
 import { mealRouter } from './routes/meal-api';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 app.use(cors({credentials: true, origin: true}));
+app.use(cookieParser());
 app.use(express.json());
 app.use(userRouter);
 app.use(mealRouter);

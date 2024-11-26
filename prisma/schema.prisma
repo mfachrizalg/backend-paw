@@ -15,11 +15,12 @@ datasource db {
 }
 
 model User {
-  id        String @id @default(cuid())
-  email     String @unique @db.VarChar(25)
-  username  String @unique @db.VarChar(25)
-  handphone String @unique @db.VarChar(12)
+  id        String  @id @default(cuid())
+  email     String  @unique @db.VarChar(25)
+  username  String  @unique @db.VarChar(25)
+  handphone String  @unique @db.VarChar(12)
   password  String
+  token     String? @db.TinyText
   Meal      Meal[]
 
   @@index([id, username, email, handphone])
@@ -35,7 +36,10 @@ model Meal {
   image        String
   userId       String
   startTime    DateTime
-  users        User     @relation(fields: [userId], references: [id])
+  scheduled    Boolean?
+  bookmarked   Boolean?
+
+  users User @relation(fields: [userId], references: [id])
 
   @@index([id, userId])
   @@map("meals")
