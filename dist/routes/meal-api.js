@@ -9,3 +9,4 @@ const meal_controller_1 = require("../controllers/meal-controller");
 exports.mealRouter = express_1.default.Router();
 exports.mealRouter.get('/api/meal', meal_controller_1.MealController.getMeal);
 exports.mealRouter.post('/api/meal', meal_controller_1.MealController.addMealToSchedule);
+//# sourceMappingURL=meal-api.js.map

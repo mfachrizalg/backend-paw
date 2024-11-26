@@ -10,3 +10,4 @@ exports.userRouter = express_1.default.Router();
 exports.userRouter.post('/api/register', user_controller_1.UserController.register);
 exports.userRouter.post('/api/login', user_controller_1.UserController.login);
 exports.userRouter.get('/api/logout', user_controller_1.UserController.logout);
+//# sourceMappingURL=user-api.js.map

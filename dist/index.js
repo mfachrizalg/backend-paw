@@ -12,6 +12,10 @@ app.use(express_1.default.json());
 app.use(user_api_1.userRouter);
 app.use(meal_api_1.mealRouter);
 app.use(error_middleware_1.errorMiddleware);
+app.get('/', (req, res) => {
+    res.send('Welcome to the meal planner API!');
+});
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
 });
+//# sourceMappingURL=index.js.map

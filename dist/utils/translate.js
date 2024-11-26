@@ -21,3 +21,4 @@ function translate(text) {
         return response.data[0][0][0];
     });
 }
+//# sourceMappingURL=translate.js.map

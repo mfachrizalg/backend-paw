@@ -1,0 +1,1 @@
+{"version":3,"file":"meal-api.js","sourceRoot":"","sources":["../../src/routes/meal-api.ts"],"names":[],"mappings":";;;;;;AAAA,sDAA6B;AAC7B,oEAA+D;AAElD,QAAA,UAAU,GAAG,iBAAO,CAAC,MAAM,EAAE,CAAA;AAC1C,kBAAU,CAAC,GAAG,CAAC,WAAW,EAAE,gCAAc,CAAC,OAAO,CAAC,CAAA;AACnD,kBAAU,CAAC,IAAI,CAAC,WAAW,EAAE,gCAAc,CAAC,iBAAiB,CAAC,CAAA"}

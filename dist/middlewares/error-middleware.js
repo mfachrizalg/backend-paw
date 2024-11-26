@@ -21,3 +21,4 @@ const errorMiddleware = (error, req, res) => __awaiter(void 0, void 0, void 0, f
         res.status(500).json({ errors: "Internal Server Error" });
 });
 exports.errorMiddleware = errorMiddleware;
+//# sourceMappingURL=error-middleware.js.map

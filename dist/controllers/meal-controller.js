@@ -39,3 +39,4 @@ class MealController {
     }
 }
 exports.MealController = MealController;
+//# sourceMappingURL=meal-controller.js.map
