@@ -6,7 +6,13 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
 const app = express();
-app.use(cors({credentials: true, origin: true}));
+const corsOptions = {
+    credentials: true,
+    origin: '*',
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization, Cache-Control, Origin ,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+}
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
 app.use(userRouter);
