@@ -3,3 +3,4 @@ import { MealController } from "../controllers/meal-controller"
 
 export const mealRouter = express.Router()
 mealRouter.get('/api/meal', MealController.getMeal)
+mealRouter.post('/api/meal', MealController.addMealToSchedule)

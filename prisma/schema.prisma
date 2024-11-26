@@ -27,13 +27,15 @@ model User {
 }
 
 model Meal {
-  id           Int    @id
+  id           String   @id @default(cuid())
+  mealDBid     String
   name         String
   ingredients  String
-  instructions String
+  instructions String   @db.Text
   image        String
   userId       String
-  users        User   @relation(fields: [userId], references: [id])
+  startTime    DateTime
+  users        User     @relation(fields: [userId], references: [id])
 
   @@index([id, userId])
   @@map("meals")
