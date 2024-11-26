@@ -5,7 +5,7 @@ import { mealRouter } from './routes/meal-api';
 import cors from 'cors';
 
 const app = express();
-app.use(cors());
+app.use(cors({credentials: true, origin: true}));
 app.use(express.json());
 app.use(userRouter);
 app.use(mealRouter);
