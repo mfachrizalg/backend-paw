@@ -2,8 +2,10 @@ import express, { Request, Response } from 'express';
 import { errorMiddleware } from './middlewares/error-middleware';
 import { userRouter } from './routes/user-api';
 import { mealRouter } from './routes/meal-api';
+import cors from 'cors';
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(userRouter);
 app.use(mealRouter);
