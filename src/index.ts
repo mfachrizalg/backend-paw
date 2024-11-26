@@ -1,4 +1,4 @@
-import express, { Response } from 'express';
+import express, { Request, Response } from 'express';
 import { errorMiddleware } from './middlewares/error-middleware';
 import { userRouter } from './routes/user-api';
 import { mealRouter } from './routes/meal-api';
@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(userRouter);
 app.use(mealRouter);
 app.use(errorMiddleware);
-app.get('/', (req, res: Response) => {
+app.get('/', (req: Request, res: Response) => {
     res.send('Welcome to the meal planner API!');
 });
 
