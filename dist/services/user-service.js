@@ -39,7 +39,8 @@ class UserService {
         return __awaiter(this, void 0, void 0, function* () {
             const loginRequest = validation_1.Validation.validate(user_validation_1.UserValidation.LOGIN, request);
             const user = yield db_1.prisma.user.findUnique({
-                where: { email: loginRequest.email }
+                where: { email: loginRequest.email },
+                select: { id: true, password: true }
             });
             if (!user)
                 throw new response_error_1.ResponseError(400, "Invalid email or password!");
@@ -48,7 +49,10 @@ class UserService {
                 throw new response_error_1.ResponseError(400, "Invalid email or password!");
             const token = jsonwebtoken_1.default.sign({ id: user.id }, process.env.ACCESS_TOKEN_SECRET, {
                 expiresIn: "1h",
-                issuer: "mealify"
+            });
+            yield db_1.prisma.user.update({
+                where: { id: user.id },
+                data: { token: token }
             });
             return { token, message: "Login success!" };
         });

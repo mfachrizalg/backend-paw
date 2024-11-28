@@ -16,7 +16,7 @@ class MealController {
     static getMeal(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { name } = req.query;
+                const name = req.query.name;
                 const translatedName = yield (0, translate_1.translate)(name);
                 const response = yield meal_service_1.MealService.getMeal(translatedName);
                 res.status(200).json(response);
@@ -29,7 +29,41 @@ class MealController {
     static addMealToSchedule(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const response = yield meal_service_1.MealService.addMealToSchedule(req.body);
+                const response = yield meal_service_1.MealService.addMealToSchedule(req.body, req);
+                res.status(200).json(response);
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
+    static bookmarkMeal(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const mealDBid = req.params["mealDBid"];
+                const response = yield meal_service_1.MealService.bookmarkMeal(mealDBid, req);
+                res.status(200).json(response);
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
+    static getBookmarkedMeals(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield meal_service_1.MealService.getBookmarkedMeals(req);
+                res.status(200).json(response);
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
+    static getScheduleMeals(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield meal_service_1.MealService.getScheduleMeals(req);
                 res.status(200).json(response);
             }
             catch (error) {

@@ -36,7 +36,7 @@ class MealService {
             });
         });
     }
-    static addMealToSchedule(request) {
+    static addMealToSchedule(request, req) {
         return __awaiter(this, void 0, void 0, function* () {
             const addMealRequest = validation_1.Validation.validate(meal_validation_1.MealValidation.ADDMEAL, request);
             const mealDetail = yield axios_1.default.get(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${addMealRequest.mealDBid}`)
@@ -52,10 +52,52 @@ class MealService {
                     name: mealDetail.strMeal,
                     image: mealDetail.strMealThumb,
                     instructions: mealDetail.strInstructions,
-                    userId: "cm3xu1akv0000xxmvzbar42c4"
+                    scheduled: true,
+                    userId: req.body.userId
                 }
             });
             return { message: "Meal added to schedule!" };
+        });
+    }
+    static bookmarkMeal(request, req) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const mealDBid = validation_1.Validation.validate(meal_validation_1.MealValidation.BOOKMARKMEAL, request);
+            yield db_1.prisma.meal.updateMany({
+                where: { mealDBid, userId: req.body.userId },
+                data: { bookmarked: true }
+            });
+            return { message: "Meal bookmarked!" };
+        });
+    }
+    static getBookmarkedMeals(req) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const meals = yield db_1.prisma.meal.findMany({
+                where: { userId: req.body.userId, bookmarked: true }
+            });
+            return meals.map(meal => {
+                return {
+                    mealDBid: meal.mealDBid,
+                    name: meal.name,
+                    image: meal.image,
+                    ingredients: meal.ingredients.split(",")
+                };
+            });
+        });
+    }
+    static getScheduleMeals(req) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const meals = yield db_1.prisma.meal.findMany({
+                where: { userId: req.body.userId, scheduled: true }
+            });
+            return meals.map(meal => {
+                return {
+                    mealDBid: meal.mealDBid,
+                    name: meal.name,
+                    image: meal.image,
+                    ingredients: meal.ingredients.split(","),
+                    startDate: meal.startTime
+                };
+            });
         });
     }
 }
