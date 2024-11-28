@@ -34,7 +34,7 @@ class UserController {
                     httpOnly: true,
                     maxAge: 1 * 60 * 60 * 1000
                 });
-                res.status(200).json({ message: response.message });
+                res.status(200).json(response);
             }
             catch (error) {
                 next(error);

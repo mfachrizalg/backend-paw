@@ -45,6 +45,9 @@ export class UserService {
             where: { id: user.id },
             data: { token: token }
         })
-        return {token, message: "Login success!"};
+        return {
+            token: token,
+            message: "Login success!"
+        };
     }
 }
