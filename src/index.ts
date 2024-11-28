@@ -6,8 +6,8 @@ import cors, { CorsOptions } from 'cors';
 import cookieParser from 'cookie-parser';
 
 const app = express();
-const allowedOrigins = ['https://mealify-roan.vercel.app', 'http://localhost:3000']
-const isDevelopment = process.env.NODE_ENV === 'development' ? true : false;
+const allowedOrigins = ['https://mealify-roan.vercel.app', 'http://localhost:3000', 'https://backend-paw-delta.vercel.app']
+const isDevelopment = process.env.NODE_ENV === 'development';
 const corsOptions: CorsOptions = {
     credentials: true,
     origin: function (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {

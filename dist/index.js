@@ -10,8 +10,8 @@ const meal_api_1 = require("./routes/meal-api");
 const cors_1 = __importDefault(require("cors"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const app = (0, express_1.default)();
-const allowedOrigins = ['https://mealify-roan.vercel.app', 'http://localhost:3000'];
-const isDevelopment = process.env.NODE_ENV === 'development' ? true : false;
+const allowedOrigins = ['https://mealify-roan.vercel.app', 'http://localhost:3000', 'https://backend-paw-delta.vercel.app'];
+const isDevelopment = process.env.NODE_ENV === 'development';
 const corsOptions = {
     credentials: true,
     origin: function (origin, callback) {
