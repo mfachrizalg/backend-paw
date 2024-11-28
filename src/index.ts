@@ -2,15 +2,22 @@ import express, { Request, Response } from 'express';
 import { errorMiddleware } from './middlewares/error-middleware';
 import { userRouter } from './routes/user-api';
 import { mealRouter } from './routes/meal-api';
-import cors from 'cors';
+import cors, { CorsOptions } from 'cors';
 import cookieParser from 'cookie-parser';
 
 const app = express();
-const corsOptions = {
+const allowedOrigins = ['https://mealify-roan.vercel.app', 'http://localhost:3000']
+const corsOptions: CorsOptions = {
     credentials: true,
-    origin: '*',
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    allowedHeaders: "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization, Cache-Control, Origin ,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+    origin: function (origin, callback) {
+        if (allowedOrigins.includes(origin || '')) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
+    methods: "GET,OPTIONS,PATCH,DELETE,POST,PUT",
+    allowedHeaders: "Content-Type, Authorization, X-Requested-With"
 }
 app.use(cors(corsOptions));
 app.use(cookieParser());

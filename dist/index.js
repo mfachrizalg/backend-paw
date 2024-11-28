@@ -10,11 +10,19 @@ const meal_api_1 = require("./routes/meal-api");
 const cors_1 = __importDefault(require("cors"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const app = (0, express_1.default)();
+const allowedOrigins = ['https://mealify-roan.vercel.app', 'http://localhost:3000'];
 const corsOptions = {
     credentials: true,
-    origin: '*',
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    allowedHeaders: "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization, Cache-Control, Origin ,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+    origin: function (origin, callback) {
+        if (allowedOrigins.includes(origin || '')) {
+            callback(null, true);
+        }
+        else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: "GET,OPTIONS,PATCH,DELETE,POST,PUT",
+    allowedHeaders: "Content-Type, Authorization, X-Requested-With"
 };
 app.use((0, cors_1.default)(corsOptions));
 app.use((0, cookie_parser_1.default)());
