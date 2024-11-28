@@ -11,14 +11,22 @@ const cors_1 = __importDefault(require("cors"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const app = (0, express_1.default)();
 const allowedOrigins = ['https://mealify-roan.vercel.app', 'http://localhost:3000'];
+const isDevelopment = process.env.NODE_ENV === 'development' ? true : false;
 const corsOptions = {
     credentials: true,
     origin: function (origin, callback) {
-        if (allowedOrigins.includes(origin || '')) {
+        if (isDevelopment) {
+            // Allow all origins in development
             callback(null, true);
         }
         else {
-            callback(new Error('Not allowed by CORS'));
+            // In production, check if the origin is allowed
+            if (origin && allowedOrigins.includes(origin)) {
+                callback(null, true);
+            }
+            else {
+                callback(new Error('Not allowed by CORS'));
+            }
         }
     },
     methods: "GET,OPTIONS,PATCH,DELETE,POST,PUT",
