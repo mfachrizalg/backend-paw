@@ -8,7 +8,7 @@ export const userMiddleware = async (req: Request, res: Response, next: NextFunc
         if (cookie === undefined) throw new ResponseError(401, "Login required!");
         const decodeJWT: jwt.JwtPayload = jwt.verify(cookie, process.env.ACCESS_TOKEN_SECRET as string) as jwt.JwtPayload;
         if (decodeJWT === undefined) throw new ResponseError(401, "Unauthorized!");
-        req.headers.token = decodeJWT.id;
+        req.body.userId = decodeJWT.id;
         next();
     } catch (error) {
         next(error);
