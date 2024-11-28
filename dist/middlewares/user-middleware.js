@@ -14,15 +14,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userMiddleware = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const response_error_1 = require("../error/response-error");
 const userMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     try {
-        const cookie = req.cookies["mealify"];
-        if (cookie === undefined)
-            throw new response_error_1.ResponseError(401, "Login required!");
+        let cookie = req.cookies["mealify"];
+        const header = (_a = req.header("Authorization")) === null || _a === void 0 ? void 0 : _a.split(" ")[1];
+        if (header)
+            cookie = header;
         const decodeJWT = jsonwebtoken_1.default.verify(cookie, process.env.ACCESS_TOKEN_SECRET);
-        if (decodeJWT === undefined)
-            throw new response_error_1.ResponseError(401, "Unauthorized!");
         req.body.userId = decodeJWT.id;
         next();
     }
