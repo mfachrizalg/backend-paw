@@ -10,27 +10,10 @@ const meal_api_1 = require("./routes/meal-api");
 const cors_1 = __importDefault(require("cors"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const app = (0, express_1.default)();
-const allowedOrigins = ['https://mealify-roan.vercel.app', 'http://localhost:3000', 'https://backend-paw-delta.vercel.app'];
-const isDevelopment = process.env.NODE_ENV === 'development';
 const corsOptions = {
     credentials: true,
-    origin: function (origin, callback) {
-        if (isDevelopment) {
-            // Allow all origins in development
-            callback(null, true);
-        }
-        else {
-            // In production, check if the origin is allowed
-            if (origin && allowedOrigins.includes(origin)) {
-                callback(null, true);
-            }
-            else {
-                callback(new Error('Not allowed by CORS'));
-            }
-        }
-    },
-    methods: "GET,OPTIONS,PATCH,DELETE,POST,PUT",
-    allowedHeaders: "Content-Type, Authorization, X-Requested-With"
+    origin: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 };
 app.use((0, cors_1.default)(corsOptions));
 app.use((0, cookie_parser_1.default)());
