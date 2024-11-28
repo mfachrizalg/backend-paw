@@ -8,6 +8,7 @@ export const errorMiddleware = (error: Error, req: Request, res: Response, next:
     } else if (error instanceof ZodError) {
         res.status(400).json({ errors: `Validation Error: ${JSON.stringify(error)}` });
     } else {
+        console.log(error)
         res.status(500).json({ errors: "Internal Server Error" });
     }
 }

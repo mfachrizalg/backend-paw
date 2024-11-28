@@ -7,15 +7,22 @@ import cookieParser from 'cookie-parser';
 
 const app = express();
 const allowedOrigins = ['https://mealify-roan.vercel.app', 'http://localhost:3000']
+const isDevelopment = process.env.NODE_ENV === 'development' ? true : false;
 const corsOptions: CorsOptions = {
     credentials: true,
-    origin: function (origin, callback) {
-        if (allowedOrigins.includes(origin || '')) {
+    origin: function (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
+      if (isDevelopment) {
+        // Allow all origins in development
+        callback(null, true);
+      } else {
+        // In production, check if the origin is allowed
+        if (origin && allowedOrigins.includes(origin)) {
           callback(null, true);
         } else {
           callback(new Error('Not allowed by CORS'));
         }
-      },
+      }
+    },
     methods: "GET,OPTIONS,PATCH,DELETE,POST,PUT",
     allowedHeaders: "Content-Type, Authorization, X-Requested-With"
 }
