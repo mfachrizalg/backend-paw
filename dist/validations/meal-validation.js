@@ -1,14 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.MealValidation = void 0;
-const zod_1 = require("zod");
-class MealValidation {
+import { z } from "zod";
+export class MealValidation {
+    static GETMEAL = z.string({ message: "Must not empty!" });
+    static BOOKMARKMEAL = z.coerce.string({ message: "Must not empty!" });
+    static ADDMEAL = z.object({
+        mealDBid: z.string({ message: "Must not empty!" }),
+        startDate: z.string().datetime({ message: "Must be a date!" })
+    });
 }
-exports.MealValidation = MealValidation;
-MealValidation.GETMEAL = zod_1.z.string({ message: "Must not empty!" });
-MealValidation.BOOKMARKMEAL = zod_1.z.coerce.string({ message: "Must not empty!" });
-MealValidation.ADDMEAL = zod_1.z.object({
-    mealDBid: zod_1.z.string({ message: "Must not empty!" }),
-    startDate: zod_1.z.string().datetime({ message: "Must be a date!" })
-});
 //# sourceMappingURL=meal-validation.js.map

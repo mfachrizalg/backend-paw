@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { ResponseError } from "../error/response-error";
 
 export const userMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     try {

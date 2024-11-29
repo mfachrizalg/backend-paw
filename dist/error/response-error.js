@@ -1,12 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ResponseError = void 0;
-class ResponseError extends Error {
+export class ResponseError extends Error {
+    statusCode;
+    message;
     constructor(statusCode, message) {
         super(message);
         this.statusCode = statusCode;
         this.message = message;
     }
 }
-exports.ResponseError = ResponseError;
 //# sourceMappingURL=response-error.js.map

@@ -1,6 +1,6 @@
 import express from 'express';
-import { MealController } from "../controllers/meal-controller";
-import { userMiddleware } from "../middlewares/user-middleware";
+import { MealController } from "../controllers/meal-controller.js";
+import { userMiddleware } from "../middlewares/user-middleware.js";
 
 export const mealRouter = express.Router();
 mealRouter.get('/api/meal', MealController.getMeal);

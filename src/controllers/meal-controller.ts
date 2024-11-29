@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { MealService } from "../services/meal-service";
-import { translate } from "../utils/translate";
+import { MealService } from "../services/meal-service.js";
+import { translate } from "../utils/translate.js";
 
 export class MealController {
 

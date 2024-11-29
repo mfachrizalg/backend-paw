@@ -1,26 +1,21 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const error_middleware_1 = require("./middlewares/error-middleware");
-const user_api_1 = require("./routes/user-api");
-const meal_api_1 = require("./routes/meal-api");
-const cors_1 = __importDefault(require("cors"));
-const cookie_parser_1 = __importDefault(require("cookie-parser"));
-const app = (0, express_1.default)();
+import express from 'express';
+import { errorMiddleware } from './middlewares/error-middleware.js';
+import { userRouter } from './routes/user-api.js';
+import { mealRouter } from './routes/meal-api.js';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+const app = express();
 const corsOptions = {
     credentials: true,
     origin: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 };
-app.use((0, cors_1.default)(corsOptions));
-app.use((0, cookie_parser_1.default)());
-app.use(express_1.default.json());
-app.use(user_api_1.userRouter);
-app.use(meal_api_1.mealRouter);
-app.use(error_middleware_1.errorMiddleware);
+app.use(cors(corsOptions));
+app.use(cookieParser());
+app.use(express.json());
+app.use(userRouter);
+app.use(mealRouter);
+app.use(errorMiddleware);
 app.get('/', (req, res) => {
     res.send('Welcome to the meal planner API!');
 });

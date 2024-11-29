@@ -20,6 +20,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "type": "module",
   "dependencies": {
     "@prisma/client": "^5.22.0",
     "axios": "^1.7.8",

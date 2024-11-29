@@ -1,8 +1,8 @@
-import { AddMealRequest, AddMealResponse, GetMealResponse } from "../models/meal-model";
+import { AddMealRequest, AddMealResponse, GetMealResponse } from "../models/meal-model.js";
 import axios from "axios";
-import { Validation } from "../validations/validation";
-import { MealValidation } from "../validations/meal-validation";
-import { prisma } from "../db/db";
+import { Validation } from "../validations/validation.js";
+import { MealValidation } from "../validations/meal-validation.js";
+import { prisma } from "../db/db.js";
 import { Request } from "express";
 
 export class MealService {
@@ -120,7 +120,7 @@ export class MealService {
 
     static async deleteBookmark(request: string, req: Request): Promise<AddMealResponse> {
         const mealDBid = Validation.validate(MealValidation.BOOKMARKMEAL, request);
-        const mealId = await prisma.meal.findFirst({
+        const mealId = await prisma.meal.findFirstOrThrow({
             where: {mealDBid: mealDBid, userId: req.body.userId, bookmarked: true},
             select : {id: true}
         })
@@ -130,7 +130,7 @@ export class MealService {
 
     static async deleteSchedule(request: string, req: Request): Promise<AddMealResponse> {
         const mealDBid = Validation.validate(MealValidation.BOOKMARKMEAL, request);
-        const mealId = await prisma.meal.findFirst({
+        const mealId = await prisma.meal.findFirstOrThrow({
             where: {mealDBid: mealDBid, userId: req.body.userId, scheduled: true},
             select : {id: true}
         })

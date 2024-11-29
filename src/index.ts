@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
-import { errorMiddleware } from './middlewares/error-middleware';
-import { userRouter } from './routes/user-api';
-import { mealRouter } from './routes/meal-api';
+import { errorMiddleware } from './middlewares/error-middleware.js';
+import { userRouter } from './routes/user-api.js';
+import { mealRouter } from './routes/meal-api.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 

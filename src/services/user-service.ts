@@ -1,8 +1,8 @@
-import { prisma } from "../db/db";
-import { ResponseError } from "../error/response-error";
-import { UserLogin, UserRegister, UserRegisterResponse, UserLoginResponse } from "../models/user-model";
-import { UserValidation } from "../validations/user-validation";
-import { Validation } from "../validations/validation";
+import { prisma } from "../db/db.js";
+import { ResponseError } from "../error/response-error.js";
+import { UserLogin, UserRegister, UserRegisterResponse, UserLoginResponse } from "../models/user-model.js";
+import { UserValidation } from "../validations/user-validation.js";
+import { Validation } from "../validations/validation.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 

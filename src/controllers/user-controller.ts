@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { UserLogin, UserRegister } from "../models/user-model";
-import { UserService } from "../services/user-service";
+import { UserLogin, UserRegister } from "../models/user-model.js";
+import { UserService } from "../services/user-service.js";
 
 export class UserController {
 
