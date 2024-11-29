@@ -28,14 +28,14 @@ model User {
 }
 
 model Meal {
-  id           String   @id @default(cuid())
+  id           String    @id @default(cuid())
   mealDBid     String
   name         String
   ingredients  String
-  instructions String   @db.Text
+  instructions String    @db.Text
   image        String
   userId       String
-  startTime    DateTime
+  startTime    DateTime?
   scheduled    Boolean?
   bookmarked   Boolean?
 

@@ -44,28 +44,64 @@ class MealService {
             const ingredients = Object.keys(mealDetail)
                 .filter(key => key.includes("strIngredient") && mealDetail[key])
                 .map(key => mealDetail[key]);
-            yield db_1.prisma.meal.create({
-                data: {
-                    mealDBid: addMealRequest.mealDBid,
-                    startTime: addMealRequest.startDate,
-                    ingredients: ingredients.join(","),
-                    name: mealDetail.strMeal,
-                    image: mealDetail.strMealThumb,
-                    instructions: mealDetail.strInstructions,
-                    scheduled: true,
-                    userId: req.body.userId
-                }
+            const mealId = yield db_1.prisma.meal.findFirst({
+                where: { mealDBid: addMealRequest.mealDBid, userId: req.body.userId, scheduled: true },
+                select: { id: true }
             });
+            if (!mealId) {
+                yield db_1.prisma.meal.create({
+                    data: {
+                        mealDBid: addMealRequest.mealDBid,
+                        startTime: addMealRequest.startDate,
+                        ingredients: ingredients.join(","),
+                        name: mealDetail.strMeal,
+                        image: mealDetail.strMealThumb,
+                        instructions: mealDetail.strInstructions,
+                        scheduled: true,
+                        userId: req.body.userId
+                    }
+                });
+            }
+            else {
+                yield db_1.prisma.meal.update({
+                    where: { id: mealId.id },
+                    data: { startTime: addMealRequest.startDate, scheduled: true }
+                });
+            }
             return { message: "Meal added to schedule!" };
         });
     }
     static bookmarkMeal(request, req) {
         return __awaiter(this, void 0, void 0, function* () {
             const mealDBid = validation_1.Validation.validate(meal_validation_1.MealValidation.BOOKMARKMEAL, request);
-            yield db_1.prisma.meal.updateMany({
-                where: { mealDBid, userId: req.body.userId },
-                data: { bookmarked: true }
+            const mealId = yield db_1.prisma.meal.findFirst({
+                where: { mealDBid: mealDBid, userId: req.body.userId },
+                select: { id: true }
             });
+            if (!mealId) {
+                const mealDetail = yield axios_1.default.get(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealDBid}`)
+                    .then(response => response.data.meals[0]);
+                const ingredients = Object.keys(mealDetail)
+                    .filter(key => key.includes("strIngredient") && mealDetail[key])
+                    .map(key => mealDetail[key]);
+                yield db_1.prisma.meal.create({
+                    data: {
+                        mealDBid: mealDBid,
+                        ingredients: ingredients.join(","),
+                        name: mealDetail.strMeal,
+                        image: mealDetail.strMealThumb,
+                        instructions: mealDetail.strInstructions,
+                        bookmarked: true,
+                        userId: req.body.userId
+                    }
+                });
+            }
+            else {
+                yield db_1.prisma.meal.update({
+                    where: { id: mealId.id },
+                    data: { bookmarked: true }
+                });
+            }
             return { message: "Meal bookmarked!" };
         });
     }
