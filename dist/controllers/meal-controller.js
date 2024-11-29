@@ -71,6 +71,28 @@ class MealController {
             }
         });
     }
+    static deleteBookmark(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield meal_service_1.MealService.deleteBookmark(req.params["mealId"], req);
+                res.status(200).json(response);
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
+    static deleteSchedule(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield meal_service_1.MealService.deleteSchedule(req.params["mealId"], req);
+                res.status(200).json(response);
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
 }
 exports.MealController = MealController;
 //# sourceMappingURL=meal-controller.js.map

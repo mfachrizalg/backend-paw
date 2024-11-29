@@ -136,6 +136,31 @@ class MealService {
             });
         });
     }
+    static deleteBookmark(request, req) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const mealDBid = validation_1.Validation.validate(meal_validation_1.MealValidation.BOOKMARKMEAL, request);
+            const mealId = yield db_1.prisma.meal.findFirst({
+                where: { mealDBid: mealDBid, userId: req.body.userId, bookmarked: true },
+                select: { id: true }
+            });
+            yield db_1.prisma.meal.update({ where: { id: mealId.id }, data: { bookmarked: false } });
+            return { message: "Bookmark deleted!" };
+        });
+    }
+    static deleteSchedule(request, req) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const mealDBid = validation_1.Validation.validate(meal_validation_1.MealValidation.BOOKMARKMEAL, request);
+            const mealId = yield db_1.prisma.meal.findFirst({
+                where: { mealDBid: mealDBid, userId: req.body.userId, scheduled: true },
+                select: { id: true }
+            });
+            yield db_1.prisma.meal.update({
+                where: { id: mealId.id },
+                data: { scheduled: false }
+            });
+            return { message: "Schedule deleted!" };
+        });
+    }
 }
 exports.MealService = MealService;
 //# sourceMappingURL=meal-service.js.map

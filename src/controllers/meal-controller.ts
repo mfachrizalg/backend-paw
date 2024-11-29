@@ -51,4 +51,23 @@ export class MealController {
             next(error);
         }
     }
+
+    static async deleteBookmark(req: Request, res: Response, next: NextFunction) {
+        try {
+            const response = await MealService.deleteBookmark(req.params["mealId"], req);
+            res.status(200).json(response)
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    static async deleteSchedule(req: Request, res: Response, next: NextFunction) {
+        try {
+            const response = await MealService.deleteSchedule(req.params["mealId"], req);
+            res.status(200).json(response)
+        } catch (error) {
+            next(error);
+        }
+    }
+
 }
